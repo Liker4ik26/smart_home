@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">SmartHome</string>
+    <string name="logo">logo</string>
+    <string name="smart_home">Умный дом</string>
+    <string name="password">Пароль</string>
+    <string name="email">Электронная почта</string>
+    <string name="create_pin_code">Создайте \n пин-код</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_out">Выйти</string>
+    <string name="username">Имя пользователя</string>
+    <string name="added_address">Добавить адрес</string>
+    <string name="added_your_address">Добавьте адрес своего дома в формате г.Название города, ул. Название улицы, д. Номер дома</string>
+    <string name="address">Адрес</string>
+    <string name="save">Сохранить</string>
+    <string name="your_home">Твой дом</string>
+    <string name="rooms">Комнаты</string>
+    <string name="added_room">Добавить комнату</string>
+    <string name="room_name">Название комнаты</string>
+    <string name="selected_room">Выбрать комнату</string>
+    <string name="living">Гостиная</string>
+    <string name="kitchen">Кухня</string>
+    <string name="bathroom">Ванная</string>
+    <string name="office">Кабинет</string>
+    <string name="bed">Спальня</string>
+    <string name="tv">Зал</string>
+    <string name="added_device">Добавить устройство</string>
+    <string name="name_device">Название устройства</string>
+    <string name="identificator_device">Идентификатор устройства</string>
+    <string name="selected_device">Выбрать устройство</string>
+    <string name="light">Свет</string>
+    <string name="condi">Кондиционер</string>
+    <string name="hood">Вытяжка</string>
+    <string name="thermo">Температура</string>
+    <string name="fan">Вентилятор</string>
+</resources>
