@@ -33,4 +33,5 @@
     <string name="hood">Вытяжка</string>
     <string name="thermo">Температура</string>
     <string name="fan">Вентилятор</string>
+    <string name="conditioner">Кондиционер</string>
 </resources>

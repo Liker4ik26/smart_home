@@ -1,4 +1,4 @@
-package com.example.smartHome.screen.light
+package com.example.smartHome.screen.hood
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -41,15 +41,14 @@ import androidx.compose.ui.unit.dp
 import com.example.smartHome.R
 
 @Composable
-fun LightScreen() {
-    LightScreen(s = "")
+fun HoodScreen() {
+    HoodScreen(s = "")
 }
 
-
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-private fun LightScreen(s: String) {
+private fun HoodScreen(s: String) {
     Scaffold(
         topBar = {
             Row(
@@ -77,7 +76,7 @@ private fun LightScreen(s: String) {
                 }
                 Spacer(modifier = Modifier.weight(2f))
                 Text(
-                    text = stringResource(id = R.string.light),
+                    text = stringResource(R.string.hood),
                     style = MaterialTheme.typography.titleMedium
                         .copy(color = MaterialTheme.colorScheme.background),
                     textAlign = TextAlign.Center,
@@ -105,22 +104,22 @@ private fun LightScreen(s: String) {
                         verticalAlignment = Alignment.CenterVertically
 
                     ) {
+                        Spacer(modifier = Modifier.height(20.dp))
                         Image(
-                            painter = painterResource(id = R.drawable.light_blue),
+                            painter = painterResource(id = R.drawable.hood_blue),
                             modifier = Modifier.size(70.dp),
                             contentDescription = null
                         )
                         Spacer(modifier = Modifier.width(20.dp))
                         Text(
-                            text = stringResource(id = R.string.light),
+                            text = stringResource(id = R.string.hood),
                             style = MaterialTheme.typography.titleMedium
                                 .copy(color = MaterialTheme.colorScheme.secondary),
-                            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+                            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp)
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Switch(
                             checked = false,
-
                             colors = SwitchDefaults
                                 .colors(
                                     checkedTrackColor = MaterialTheme.colorScheme.tertiary.copy(.5f),
@@ -131,20 +130,20 @@ private fun LightScreen(s: String) {
                                     uncheckedBorderColor = Color.Transparent
 
                                 ),
-                            onCheckedChange = {})
+                            onCheckedChange = {},
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
                     }
-                    Spacer(modifier = Modifier.width(20.dp))
                     Text(
-                        text = "яркость",
+                        text = "70% мощность",
                         style = MaterialTheme.typography.titleSmall
                             .copy(color = MaterialTheme.colorScheme.tertiary),
-                        modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, end = 16.dp)
+                        modifier = Modifier.padding(start = 18.dp, end = 16.dp)
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
                     Slider(
                         value = .5f,
                         onValueChange = {},
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
                     )
                 }
                 Spacer(modifier = Modifier.weight(4f))

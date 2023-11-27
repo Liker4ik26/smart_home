@@ -6,10 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.smartHome.screen.addedDevice.AddedDeviceScreen
-import com.example.smartHome.screen.addedRoom.AddedRoomScreen
-import com.example.smartHome.screen.device.DeviceScreen
-import com.example.smartHome.screen.light.LightScreen
+import com.example.smartHome.screen.profile.ProfileScreen
 import com.example.smartHome.ui.theme.SmartHomeTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,7 +24,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SmartHomeTheme {
-                LightScreen()
+                ProfileScreen()
             }
         }
     }

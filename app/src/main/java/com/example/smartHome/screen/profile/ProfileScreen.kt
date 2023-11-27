@@ -1,4 +1,4 @@
-package com.example.smartHome.screen.light
+package com.example.smartHome.screen.profile
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -41,48 +41,56 @@ import androidx.compose.ui.unit.dp
 import com.example.smartHome.R
 
 @Composable
-fun LightScreen() {
-    LightScreen(s = "")
+fun ProfileScreen() {
+    ProfileScreen(s = "")
 }
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun LightScreen(s: String) {
+private fun ProfileScreen(s: String) {
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.onPrimary)
-                    .padding(top = 50.dp, bottom = 20.dp),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Spacer(modifier = Modifier.width(16.dp))
-                IconButton(
-                    onClick = { /*TODO*/ },
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary),
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
+                Row(
                     modifier = Modifier
-                        .clip(shape = CircleShape)
-                        .size(50.dp)
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.onPrimary)
+                        .padding(top = 50.dp, bottom = 20.dp),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        Icons.Default.KeyboardArrowLeft,
-                        modifier = Modifier.size(48.dp),
-                        contentDescription = "arrowLeft",
-                        tint = MaterialTheme.colorScheme.background,
+                    Spacer(modifier = Modifier.width(16.dp))
+                    IconButton(
+                        onClick = { /*TODO*/ },
+                        colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.primary),
+                        modifier = Modifier
+                            .clip(shape = CircleShape)
+                            .size(50.dp)
+                    ) {
+                        Icon(
+                            Icons.Default.KeyboardArrowLeft,
+                            modifier = Modifier.size(48.dp),
+                            contentDescription = "arrowLeft",
+                            tint = MaterialTheme.colorScheme.background,
+                        )
+                    }
+                    Spacer(modifier = Modifier.weight(2f))
+                    Text(
+                        text = stringResource(R.string.fan),
+                        style = MaterialTheme.typography.titleMedium
+                            .copy(color = MaterialTheme.colorScheme.background),
+                        textAlign = TextAlign.Center,
+                    )
+                    Spacer(modifier = Modifier.weight(2.6f))
+                }
+                Row(horizontalArrangement = Arrangement.Center) {
+                    Image(
+                        painter = painterResource(id = R.drawable.profile_icon),
+                        modifier = Modifier.size(100.dp),
+                        contentDescription = null
                     )
                 }
-                Spacer(modifier = Modifier.weight(2f))
-                Text(
-                    text = stringResource(id = R.string.light),
-                    style = MaterialTheme.typography.titleMedium
-                        .copy(color = MaterialTheme.colorScheme.background),
-                    textAlign = TextAlign.Center,
-                )
-                Spacer(modifier = Modifier.weight(2.6f))
             }
         },
         content = {
@@ -105,22 +113,22 @@ private fun LightScreen(s: String) {
                         verticalAlignment = Alignment.CenterVertically
 
                     ) {
+                        Spacer(modifier = Modifier.height(20.dp))
                         Image(
-                            painter = painterResource(id = R.drawable.light_blue),
+                            painter = painterResource(id = R.drawable.fan_blue),
                             modifier = Modifier.size(70.dp),
                             contentDescription = null
                         )
                         Spacer(modifier = Modifier.width(20.dp))
                         Text(
-                            text = stringResource(id = R.string.light),
+                            text = stringResource(id = R.string.fan),
                             style = MaterialTheme.typography.titleMedium
                                 .copy(color = MaterialTheme.colorScheme.secondary),
-                            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+                            modifier = Modifier.padding(start = 16.dp, bottom = 16.dp, end = 16.dp)
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Switch(
                             checked = false,
-
                             colors = SwitchDefaults
                                 .colors(
                                     checkedTrackColor = MaterialTheme.colorScheme.tertiary.copy(.5f),
@@ -131,23 +139,22 @@ private fun LightScreen(s: String) {
                                     uncheckedBorderColor = Color.Transparent
 
                                 ),
-                            onCheckedChange = {})
+                            onCheckedChange = {},
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
                     }
-                    Spacer(modifier = Modifier.width(20.dp))
                     Text(
-                        text = "яркость",
+                        text = "70% мощность",
                         style = MaterialTheme.typography.titleSmall
                             .copy(color = MaterialTheme.colorScheme.tertiary),
-                        modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, end = 16.dp)
+                        modifier = Modifier.padding(start = 18.dp, end = 16.dp)
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
                     Slider(
                         value = .5f,
                         onValueChange = {},
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
                     )
                 }
-                Spacer(modifier = Modifier.weight(4f))
             }
         },
     )
