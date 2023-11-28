@@ -1,4 +1,4 @@
-package com.example.smartHome.screen.sign_up
+package com.example.smartHome.screen.signUp
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -21,6 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -32,17 +34,29 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.smartHome.R
 import com.example.smartHome.ui.theme.MediumTurquoise
+import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun SignUpScreen() {
-    SignUpScreen(s = "")
+    SignUpScreen(viewModel = hiltViewModel())
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SignUpScreen(s: String) {
+private fun SignUpScreen(viewModel: SingUpViewModel) {
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
+//    LaunchedEffect(Unit) {
+//        viewModel.effect.collect() { effect ->
+//            when (effect) {
+//                is SingUpUiEffect.SingUp ->SingUp()
+//            }
+//        }
+//    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -96,7 +110,7 @@ private fun SignUpScreen(s: String) {
                     style = MaterialTheme.typography.titleSmall.copy(color = MaterialTheme.colorScheme.tertiary)
                 )
                 TextField(
-                    value = "",
+                    value = state.username,
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color.Transparent,
                         cursorColor = Color.Black,
@@ -104,7 +118,9 @@ private fun SignUpScreen(s: String) {
                         focusedIndicatorColor = Color.Black,
                         unfocusedIndicatorColor = Color.Black
                     ),
-                    onValueChange = { },
+                    onValueChange = {
+                        viewModel.sendEvent(SingUpUiEvent.OnTypeUsername(it))
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
@@ -117,7 +133,7 @@ private fun SignUpScreen(s: String) {
                     style = MaterialTheme.typography.titleSmall.copy(color = MaterialTheme.colorScheme.tertiary)
                 )
                 TextField(
-                    value = "",
+                    value = state.email,
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color.Transparent,
                         cursorColor = Color.Black,
@@ -125,7 +141,7 @@ private fun SignUpScreen(s: String) {
                         focusedIndicatorColor = Color.Black,
                         unfocusedIndicatorColor = Color.Black
                     ),
-                    onValueChange = { },
+                    onValueChange = { viewModel.sendEvent(SingUpUiEvent.OnTypeEmail(it)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
@@ -138,7 +154,7 @@ private fun SignUpScreen(s: String) {
                     style = MaterialTheme.typography.titleSmall.copy(color = MaterialTheme.colorScheme.tertiary)
                 )
                 TextField(
-                    value = "",
+                    value = state.password,
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color.Transparent,
                         cursorColor = Color.Black,
@@ -146,7 +162,7 @@ private fun SignUpScreen(s: String) {
                         focusedIndicatorColor = Color.Black,
                         unfocusedIndicatorColor = Color.Black
                     ),
-                    onValueChange = { },
+                    onValueChange = { viewModel.sendEvent(SingUpUiEvent.OnTypePassword(it)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
@@ -174,7 +190,9 @@ private fun SignUpScreen(s: String) {
             }
             Spacer(modifier = Modifier.height(28.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                          viewModel.sendEvent(SingUpUiEvent.OnSingUp)
+                },
                 shape = RoundedCornerShape(20),
                 colors = ButtonDefaults.buttonColors(
                     containerColor =
