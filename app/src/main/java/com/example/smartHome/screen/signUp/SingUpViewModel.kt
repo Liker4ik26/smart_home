@@ -1,5 +1,6 @@
 package com.example.smartHome.screen.signUp
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smartHome.supabase.authorization.data.remote.AuthenticationRepository
@@ -36,15 +37,24 @@ class SingUpViewModel @Inject constructor(
                 _state.update { it.copy(username = event.username) }
             }
 
+            is SingUpUiEvent.OnSingIn -> {
+                viewModelScope.launch { _effect.emit(SingUpUiEffect.NavigateToSignInScreen) }
+            }
+
             is SingUpUiEvent.OnSingUp -> {
                 viewModelScope.launch {
-                    viewModelScope.launch {
-                        authorizationRepository.signUp(
-                            email = _state.value.email,
-                            password = _state.value.password,
-                            username = _state.value.username
-                        )
-                    }
+                    val result = authorizationRepository.signUp(
+                        email = _state.value.email,
+                        password = _state.value.password,
+                    )
+
+                    Log.d("resAuth", result.toString())
+
+                    authorizationRepository.addUser(
+                        username = _state.value.username,
+                    )
+
+                    _effect.emit(SingUpUiEffect.NavigateToPinCodeScreen)
                 }
             }
         }

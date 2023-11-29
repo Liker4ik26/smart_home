@@ -25,7 +25,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.smartHome.R
+import com.ramcosta.composedestinations.annotation.Destination
 
+@Destination
 @Composable
 fun EnteringAddressScreen() {
     EnteringAddressScreen(s = "")

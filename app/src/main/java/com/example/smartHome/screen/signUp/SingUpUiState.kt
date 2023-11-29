@@ -20,8 +20,10 @@ sealed class SingUpUiEvent {
     class OnTypePassword(val password: String) : SingUpUiEvent()
     class OnTypeUsername(val username: String) : SingUpUiEvent()
     object OnSingUp : SingUpUiEvent()
+    object OnSingIn : SingUpUiEvent()
 }
 
 sealed class SingUpUiEffect {
-    object SingUp : SingUpUiEffect()
+    object NavigateToPinCodeScreen : SingUpUiEffect()
+    object NavigateToSignInScreen : SingUpUiEffect()
 }

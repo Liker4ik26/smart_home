@@ -65,5 +65,5 @@ interface SupabaseModule {
     }
 
     @Binds
-    fun bindMedicRepository(impl: AuthenticationRepositoryImpl): AuthenticationRepository
+    fun bindAuthenticationRepository(impl: AuthenticationRepositoryImpl): AuthenticationRepository
 }

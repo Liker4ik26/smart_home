@@ -28,8 +28,9 @@ import com.example.smartHome.R
 import com.example.smartHome.screen.pinCode.widgets.InputDots
 import com.example.smartHome.screen.pinCode.widgets.NumberBoard
 import com.example.smartHome.ui.theme.MediumTurquoise
+import com.ramcosta.composedestinations.annotation.Destination
 
-
+@Destination
 @Composable
 fun PinCodeScreen() {
     PinCodeScreen(s = "")

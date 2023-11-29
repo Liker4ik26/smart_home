@@ -21,6 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -32,17 +34,40 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.smartHome.R
+import com.example.smartHome.screen.signUp.SingUpUiEvent
 import com.example.smartHome.ui.theme.MediumTurquoise
+import com.ramcosta.composedestinations.annotation.Destination
 
+@Destination
 @Composable
-fun AuthScreen() {
-    AuthScreen(s = "")
+fun AuthScreen(navigation: AuthScreenNavigation) {
+    AuthScreen(
+        viewModel = hiltViewModel(),
+        onNavigateToSignInScreen = navigation::navigationToSignInScreen,
+        onNavigateToSignUpScreen = navigation::navigateSignUpScreen
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AuthScreen(s: String) {
+private fun AuthScreen(
+    viewModel: AuthViewModel,
+    onNavigateToSignInScreen: () -> Unit,
+    onNavigateToSignUpScreen: () -> Unit,
+) {
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is AuthUiEffect.NavigateToSignInScreen -> onNavigateToSignInScreen()
+                is AuthUiEffect.NavigateToSignUpScreen -> onNavigateToSignUpScreen()
+            }
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -96,7 +121,7 @@ private fun AuthScreen(s: String) {
                     style = MaterialTheme.typography.titleSmall.copy(color = MaterialTheme.colorScheme.tertiary)
                 )
                 TextField(
-                    value = "",
+                    value = state.email,
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color.Transparent,
                         cursorColor = Color.Black,
@@ -104,7 +129,7 @@ private fun AuthScreen(s: String) {
                         focusedIndicatorColor = Color.Black,
                         unfocusedIndicatorColor = Color.Black
                     ),
-                    onValueChange = { },
+                    onValueChange = {viewModel.sendEvent(AuthUiEvent.OnTypeEmail(it)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
@@ -117,7 +142,7 @@ private fun AuthScreen(s: String) {
                     style = MaterialTheme.typography.titleSmall.copy(color = MaterialTheme.colorScheme.tertiary)
                 )
                 TextField(
-                    value = "",
+                    value = state.password,
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color.Transparent,
                         cursorColor = Color.Black,
@@ -125,7 +150,7 @@ private fun AuthScreen(s: String) {
                         focusedIndicatorColor = Color.Black,
                         unfocusedIndicatorColor = Color.Black
                     ),
-                    onValueChange = { },
+                    onValueChange = { viewModel.sendEvent(AuthUiEvent.OnTypePassword(it))},
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
@@ -134,7 +159,9 @@ private fun AuthScreen(s: String) {
             }
             Spacer(modifier = Modifier.weight(2.0f))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    viewModel.sendEvent(AuthUiEvent.OnSignIn)
+                },
                 shape = RoundedCornerShape(20),
                 colors = ButtonDefaults.buttonColors(
                     containerColor =
@@ -153,7 +180,9 @@ private fun AuthScreen(s: String) {
             }
             Spacer(modifier = Modifier.height(28.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    viewModel.sendEvent(AuthUiEvent.OnSingUp)
+                },
                 shape = RoundedCornerShape(20),
                 colors = ButtonDefaults.buttonColors(
                     containerColor =

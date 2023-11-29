@@ -38,25 +38,35 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.smartHome.R
 import com.example.smartHome.ui.theme.MediumTurquoise
-import dagger.hilt.android.AndroidEntryPoint
+import com.ramcosta.composedestinations.annotation.Destination
 
+@Destination
 @Composable
-fun SignUpScreen() {
-    SignUpScreen(viewModel = hiltViewModel())
+fun SignUpScreen(navigation: RegistrationScreenNavigation) {
+    SignUpScreen(
+        viewModel = hiltViewModel(),
+        onNavigateToPinCodeScreen = navigation::navigationToPinScreen,
+        onNavigateToSignInScreen = navigation::navigateSignInScreen
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SignUpScreen(viewModel: SingUpViewModel) {
+private fun SignUpScreen(
+    viewModel: SingUpViewModel,
+    onNavigateToPinCodeScreen: () -> Unit,
+    onNavigateToSignInScreen: () -> Unit,
+) {
 
     val state by viewModel.state.collectAsStateWithLifecycle()
-//    LaunchedEffect(Unit) {
-//        viewModel.effect.collect() { effect ->
-//            when (effect) {
-//                is SingUpUiEffect.SingUp ->SingUp()
-//            }
-//        }
-//    }
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is SingUpUiEffect.NavigateToPinCodeScreen -> onNavigateToPinCodeScreen()
+                is SingUpUiEffect.NavigateToSignInScreen -> onNavigateToSignInScreen()
+            }
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -171,7 +181,7 @@ private fun SignUpScreen(viewModel: SingUpViewModel) {
             }
             Spacer(modifier = Modifier.weight(2.0f))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { viewModel.sendEvent(SingUpUiEvent.OnSingUp) },
                 shape = RoundedCornerShape(20),
                 colors = ButtonDefaults.buttonColors(
                     containerColor =
@@ -191,7 +201,7 @@ private fun SignUpScreen(viewModel: SingUpViewModel) {
             Spacer(modifier = Modifier.height(28.dp))
             Button(
                 onClick = {
-                          viewModel.sendEvent(SingUpUiEvent.OnSingUp)
+                    viewModel.sendEvent(SingUpUiEvent.OnSingIn)
                 },
                 shape = RoundedCornerShape(20),
                 colors = ButtonDefaults.buttonColors(

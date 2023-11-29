@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.example.smartHome.presentation.AppHost
 import com.example.smartHome.screen.signUp.SignUpScreen
 import com.example.smartHome.ui.theme.SmartHomeTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,19 +15,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.light(
+            statusBarStyle = SystemBarStyle.auto(
                 Color.TRANSPARENT,
                 Color.TRANSPARENT
             ),
-            navigationBarStyle = SystemBarStyle.light(
+            navigationBarStyle = SystemBarStyle.auto(
                 Color.TRANSPARENT,
                 Color.TRANSPARENT
             ),
+
         )
         super.onCreate(savedInstanceState)
         setContent {
             SmartHomeTheme {
-                SignUpScreen()
+                AppHost()
             }
         }
     }

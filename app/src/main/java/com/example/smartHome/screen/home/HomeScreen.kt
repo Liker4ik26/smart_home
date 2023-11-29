@@ -21,7 +21,9 @@ import androidx.compose.ui.unit.dp
 import com.example.smartHome.R
 import com.example.smartHome.screen.home.widgets.HomeAppBar
 import com.example.smartHome.screen.home.widgets.RoomCard
+import com.ramcosta.composedestinations.annotation.Destination
 
+@Destination
 @Composable
 fun HomeScreen() {
     HomeScreen(s = "")

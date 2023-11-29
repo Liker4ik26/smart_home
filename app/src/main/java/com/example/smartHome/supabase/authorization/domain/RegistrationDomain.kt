@@ -1,10 +1,10 @@
 package com.example.smartHome.supabase.authorization.domain
 
+import java.util.UUID
+
 data class RegistrationDomain(
-    val password: String,
-    val profileImage: String,
+    val userId: UUID?,
     val username: String,
-    val email: String,
-    val userId: Int,
-    val homeAddressId: Int,
+    val profileImage: String?,
+    val addressId: UUID?,
 )
